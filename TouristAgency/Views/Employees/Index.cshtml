@@ -1,9 +1,24 @@
-﻿@model IEnumerable<TouristAgency.Models.Employee>
-
+﻿@using TouristAgency.Models
+@using TouristAgency.ViewModels
+@using TouristAgency.ViewModels.Employees
+@model IndexViewModel
+@addTagHelper "*, TouristAgency"
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Employees";
 }
+<h1>Список работников</h1>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Номер: </label>
+            @Html.TextBox("ID", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">ФИО: </label>
+        @Html.TextBox("FullName", Model.FilterViewModel.SelectedFullName,
+                htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+</form>
 
 <h2>Index</h2>
 
@@ -14,25 +29,37 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ID)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.IdSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Employee="@(Model.FilterViewModel.SelectedId)">Номер</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Fullname)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.FullNameSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Employee="@(Model.FilterViewModel.SelectedId)">ФИО</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Position)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.PositionSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Employee="@(Model.FilterViewModel.SelectedId)">Должность</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Age)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.AgeSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Employee="@(Model.FilterViewModel.SelectedId)">Возраст</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Telephone)
+                    Телефон
                 </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Employees) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ID)
@@ -58,3 +85,7 @@
 }
     </tbody>
 </table>
+<page-link page-model="@Model.PageViewModel" page-action="Index"
+           page-url-fullname="@(Model.FilterViewModel.SelectedFullName)"
+           page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"></page-link>
