@@ -1,11 +1,24 @@
-﻿@model IEnumerable<TouristAgency.Models.TypeRest>
-
+﻿@using TouristAgency.Models
+@using TouristAgency.ViewModels
+@using TouristAgency.ViewModels.TypeRests
+@model IndexViewModel
+@addTagHelper "*, TouristAgency"
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "TypeRests";
 }
+<h1>Список видов отдыха</h1>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Номер: </label>
+        @Html.TextBox("ID", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
 
-<h2>Index</h2>
+        <label class="control-label">Наименование: </label>
+        @Html.TextBox("Name", Model.FilterViewModel.SelectedName,
+                htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,22 +27,28 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ID)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.IdSort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-TypeRest="@(Model.FilterViewModel.SelectedId)">Номер</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-TypeRest="@(Model.FilterViewModel.SelectedId)">Наименование</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    Описание
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Constraints)
+                    Ограничения
                 </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.TypeRests) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ID)
@@ -52,3 +71,8 @@
 }
     </tbody>
 </table>
+
+<page-link page-model="@Model.PageViewModel" page-action="Index"
+           page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"></page-link>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - lab_5</title>
+    <title>@ViewData["Title"] - TouristAgency</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,19 +26,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">lab_5</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Туристическое Агентство</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Vouchers" asp-action="Index">Vouchers</a></li>
-                    <li><a asp-area="" asp-controller="Clients" asp-action="Index">Clients</a></li>
-                    <li><a asp-area="" asp-controller="Hotels" asp-action="Index">Hotels</a></li>
-                    <li><a asp-area="" asp-controller="Services" asp-action="Index">Services</a></li>
-                    <li><a asp-area="" asp-controller="TypeRests" asp-action="Index">TypeRests</a></li>
-                    <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Vouchers" asp-action="Index">Путёвки</a></li>
+                    <li><a asp-area="" asp-controller="Clients" asp-action="Index">Клиенты</a></li>
+                    <li><a asp-area="" asp-controller="Hotels" asp-action="Index">Отели</a></li>
+                    <li><a asp-area="" asp-controller="Services" asp-action="Index">Сервисы</a></li>
+                    <li><a asp-area="" asp-controller="TypeRests" asp-action="Index">Виды отдыха</a></li>
+                    <li><a asp-area="" asp-controller="Employees" asp-action="Index">Работники</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +45,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - lab_5</p>
+            <p>&copy; 2018 - TouristAgency</p>
         </footer>
     </div>
 

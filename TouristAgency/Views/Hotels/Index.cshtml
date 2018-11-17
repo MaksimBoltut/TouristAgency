@@ -1,11 +1,24 @@
-﻿@model IEnumerable<TouristAgency.Models.Hotel>
-
+﻿@using TouristAgency.Models
+@using TouristAgency.ViewModels
+@using TouristAgency.ViewModels.Hotels
+@model IndexViewModel
+@addTagHelper "*, TouristAgency"
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Hotels";
 }
+<h1>Список отелей</h1>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Номер: </label>
+        @Html.TextBox("ID", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
 
-<h2>Index</h2>
+        <label class="control-label">Название: </label>
+        @Html.TextBox("FullName", Model.FilterViewModel.SelectedName,
+                htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,37 +27,55 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ID)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.IdSort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-Hotel="@(Model.FilterViewModel.SelectedId)">Номер</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-Hotel="@(Model.FilterViewModel.SelectedId)">Название</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Country)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.CountrySort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-Hotel="@(Model.FilterViewModel.SelectedId)">Страна</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.City)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.CitySort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-Hotel="@(Model.FilterViewModel.SelectedId)">Город</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Adress)
+                    Адрес
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Telephone)
+                    Телефон
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Stars)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.StarsSort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-Hotel="@(Model.FilterViewModel.SelectedId)">Кол-во звёзд</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ContactFace)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.ContactFaceSort)"
+                       asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                       asp-route-Hotel="@(Model.FilterViewModel.SelectedId)">Контактное лицо</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FotoHotel)
+                    Фото отеля
                 </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Hotels) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ID)
@@ -82,3 +113,8 @@
 }
     </tbody>
 </table>
+
+<page-link page-model="@Model.PageViewModel" page-action="Index"
+           page-url-fullname="@(Model.FilterViewModel.SelectedName)"
+           page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"></page-link>

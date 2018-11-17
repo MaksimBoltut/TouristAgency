@@ -76,11 +76,5 @@ namespace TouristAgency.Controllers
             };
             return View(viewModel);
         }
-
-        //public IActionResult Index()
-        //{
-        //    var employees = context.Employees.ToList();
-        //    return View(employees);
-        //}
     }
 }

@@ -1,11 +1,24 @@
-﻿@model IEnumerable<TouristAgency.Models.Client>
-
+﻿@using TouristAgency.Models
+@using TouristAgency.ViewModels
+@using TouristAgency.ViewModels.Clients
+@model IndexViewModel
+@addTagHelper "*, TouristAgency"
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Clients";
 }
+<h1>Список клиентов</h1>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Номер: </label>
+        @Html.TextBox("ID", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
 
-<h2>Index</h2>
+        <label class="control-label">ФИО: </label>
+        @Html.TextBox("FullName", Model.FilterViewModel.SelectedFullName,
+                htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,34 +27,46 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ID)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.IdSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Client="@(Model.FilterViewModel.SelectedId)">Номер</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.FullName)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.FullNameSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Client="@(Model.FilterViewModel.SelectedId)">ФИО</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateBirth)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.DateBirthSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Client="@(Model.FilterViewModel.SelectedId)">Дата рождения</a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Sex)
+                    Пол
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Adress)
+                    Адрес
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Telephone)
+                    Телефон
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PassData)
+                    Пасспортные данные
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Discount)
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@(Model.SortViewModel.DiscountSort)"
+                       asp-route-fullname="@(Model.FilterViewModel.SelectedFullName)"
+                       asp-route-Client="@(Model.FilterViewModel.SelectedId)">Скидка</a>
                 </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Clients) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ID)
@@ -76,3 +101,8 @@
 }
     </tbody>
 </table>
+
+<page-link page-model="@Model.PageViewModel" page-action="Index"
+           page-url-fullname="@(Model.FilterViewModel.SelectedFullName)"
+           page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"></page-link>
