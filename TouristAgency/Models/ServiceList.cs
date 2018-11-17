@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace TouristAgency.Models
+{
+    public class ServiceList
+    {
+        public int ID { get; set; }
+        public int? SerivceID { get; set; }
+        public int? VoucherID { get; set; }
+        public Voucher Voucher { get; set; }
+        public Service Service { get; set; }
+    }
+}

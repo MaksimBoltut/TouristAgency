@@ -1,6 +1,6 @@
 using System;
 
-namespace TouristAgency.Models
+namespace lab_5.Models
 {
     public class ErrorViewModel
     {

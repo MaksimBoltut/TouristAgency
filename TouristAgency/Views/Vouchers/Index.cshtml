@@ -1,0 +1,84 @@
+﻿@model TouristAgency.ViewModels.VouchersViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" border="1" cellspacing="100">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.DateBeginning)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.ExpirationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.HotelName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.TypeRestName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.ClientFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.EmployeeFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.BookingNote)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VoucherViewModel.PaymentNote)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Vouchers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateBeginning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeRest.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookingNote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentNote)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
