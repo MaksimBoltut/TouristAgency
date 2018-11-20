@@ -21,7 +21,7 @@
 </form>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Добавить новую запись</a>
 </p>
 <table class="table" border="1" cellspacing="100">
     <thead>
@@ -75,9 +75,8 @@
                 @Html.DisplayFor(modelItem => item.Telephone)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Изменение", "Edit", new { id = item.ID }, null) |
+                @Html.ActionLink("Удаление", "Delete", new { id = item.ID }, null)
             </td>
         </tr>
 }

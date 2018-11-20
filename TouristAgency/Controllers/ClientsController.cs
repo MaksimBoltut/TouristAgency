@@ -76,5 +76,65 @@ namespace TouristAgency.Controllers
             };
             return View(viewModel);
         }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            Client client = context.Clients.Find(id);
+            return View(client);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Client client)
+        {
+            context.Clients.Update(client);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(int id)
+        {
+            Client client = context.Clients.Find(id);
+
+            if (client == null)
+                return View("NotFound");
+            else
+                return View(client);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var vouchers = context.Vouchers.Where(v => v.ClientID == id);
+                foreach (Voucher voucher in vouchers)
+                {
+                    context.Vouchers.Remove(voucher);
+                }
+                context.SaveChanges();
+                var client = context.Clients.FirstOrDefault(c => c.ID == id);
+                context.Clients.Remove(client);
+                context.SaveChanges();
+            }
+            catch { }
+            return RedirectToAction("index");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Client client)
+        {
+            context.Clients.Add(client);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -18,10 +18,10 @@ namespace TouristAgency.Models
         [Display(Name = "Дата окончания")]
         [DataType(DataType.Date)]
         public DateTime ExpirationDate { get; set; }
-        public int? HotelID { get; set; }
-        public int? TypeRestID { get; set; }
-        public int? ClientID { get; set; }
-        public int? EmployeeID { get; set; }
+        public int HotelID { get; set; }
+        public int TypeRestID { get; set; }
+        public int ClientID { get; set; }
+        public int EmployeeID { get; set; }
         [Display(Name = "Отметка о бронировании")]
         public bool BookingNote { get; set; }
         [Display(Name = "Отметка об оплате")]

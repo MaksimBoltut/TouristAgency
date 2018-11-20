@@ -64,5 +64,65 @@ namespace TouristAgency.Controllers
             };
             return View(viewModel);
         }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            TypeRest service = context.TypeRests.Find(id);
+            return View(service);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(TypeRest typerest)
+        {
+            context.TypeRests.Update(typerest);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(int id)
+        {
+            TypeRest typerest = context.TypeRests.Find(id);
+
+            if (typerest == null)
+                return View("NotFound");
+            else
+                return View(typerest);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var vouchers = context.Vouchers.Where(v => v.TypeRestID == id);
+                foreach (Voucher voucher in vouchers)
+                {
+                    context.Vouchers.Remove(voucher);
+                }
+                context.SaveChanges();
+                var typerest = context.TypeRests.FirstOrDefault(c => c.ID == id);
+                context.TypeRests.Remove(typerest);
+                context.SaveChanges();
+            }
+            catch { }
+            return RedirectToAction("index");
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(TypeRest typeRest)
+        {
+            context.TypeRests.Add(typeRest);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

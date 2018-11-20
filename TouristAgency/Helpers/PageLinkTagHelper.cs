@@ -46,12 +46,26 @@ namespace TouristAgency.Helpers
                 TagBuilder prevItem = CreateTag(PageModel.PageNumber - 1, urlHelper);
                 tag.InnerHtml.AppendHtml(prevItem);
             }
+            else if (PageModel.TotalPages == 1 || PageModel.TotalPages == 0)
+            { }
+            else
+            {
+                TagBuilder prevItem = CreateTag(PageModel.TotalPages, urlHelper);
+                tag.InnerHtml.AppendHtml(prevItem);
+            }
 
             tag.InnerHtml.AppendHtml(currentItem);
             // создаем ссылку на следующую страницу, если она есть
             if (PageModel.HasNextPage)
             {
                 TagBuilder nextItem = CreateTag(PageModel.PageNumber + 1, urlHelper);
+                tag.InnerHtml.AppendHtml(nextItem);
+            }
+            else if (PageModel.TotalPages == 1 || PageModel.TotalPages == 0)
+            { }
+            else
+            {
+                TagBuilder nextItem = CreateTag(1, urlHelper);
                 tag.InnerHtml.AppendHtml(nextItem);
             }
             output.Content.AppendHtml(tag);
