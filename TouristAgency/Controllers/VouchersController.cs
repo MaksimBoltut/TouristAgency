@@ -32,7 +32,7 @@ namespace TouristAgency.Controllers
             int pageSize = 10;
 
             IQueryable<Voucher> source = context.Vouchers.Include(p => p.Hotel).Include(o => o.TypeRest).
-                Include(m => m.Client).Include(k => k.Employee);
+                Include(m => m.Client).Include(k => k.Employee).Include(o => o.ServiceList).ThenInclude(l => l.Service);
 
             if (id != null && id != 0)
                 source = source.Where(p => p.ID == id);
@@ -113,12 +113,14 @@ namespace TouristAgency.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
-            var voucherContext = context.Vouchers.Include(p => p.Hotel).Include(p => p.TypeRest).Include(p => p.Client).Include(p => p.Employee);
+            var voucherContext = context.Vouchers.Include(p => p.Hotel).Include(p => p.TypeRest).Include(p => p.Client).Include(p => p.Employee)
+                .Include(o => o.ServiceList).ThenInclude(i => i.Service);
             var items = voucherContext.Where(p => p.ID == id).ToList();
-            var hotel = new SelectList(context.Hotels, "HotelID", "Name", items.First().HotelID);
-            var typerest = new SelectList(context.TypeRests, "TypeRestID", "Name", items.First().TypeRestID);
-            var client = new SelectList(context.Clients, "ClientID", "FullName", items.First().ClientID);
-            var employee = new SelectList(context.Employees, "EmployeeID", "FullName", items.First().EmployeeID);
+            var hotel = new SelectList(context.Hotels, "ID", "Name", items.First().HotelID);
+            var typerest = new SelectList(context.TypeRests, "ID", "Name", items.First().TypeRestID);
+            var client = new SelectList(context.Clients, "ID", "FullName", items.First().ClientID);
+            var employee = new SelectList(context.Employees, "ID", "Fullname", items.First().EmployeeID);
+            var service = new SelectList(context._Services, "ID", "Name");
             IndexViewModel voucher = new IndexViewModel
             {
                 Vouchers = items,
@@ -126,6 +128,7 @@ namespace TouristAgency.Controllers
                 TypeRestList = typerest,
                 ClientList = client,
                 EmployeeList = employee,
+                ServiceList = service,
                 VoucherViewModel = _vouchers,
             };
             return View(voucher);
@@ -143,12 +146,14 @@ namespace TouristAgency.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-            var voucherContext = context.Vouchers.Include(p => p.Hotel).Include(p => p.TypeRest).Include(p => p.Client).Include(p => p.Employee);
+            var voucherContext = context.Vouchers.Include(p => p.Hotel).Include(p => p.TypeRest).Include(p => p.Client).Include(p => p.Employee)
+                .Include(o => o.ServiceList).ThenInclude(i => i.Service);
             var items = voucherContext.Where(p => p.ID == id).ToList();
             var hotel = new SelectList(context.Hotels, "HotelID", "Name", items.First().HotelID);
             var typerest = new SelectList(context.TypeRests, "TypeRestID", "Name", items.First().TypeRestID);
             var client = new SelectList(context.Clients, "ClientID", "FullName", items.First().ClientID);
             var employee = new SelectList(context.Employees, "EmployeeID", "FullName", items.First().EmployeeID);
+            var service = new SelectList(context._Services, "ID", "Name");
             VoucherViewModel voucherView = new VoucherViewModel
             {
                 ID = items.First().ID,
@@ -169,6 +174,7 @@ namespace TouristAgency.Controllers
                 ClientList = client,
                 EmployeeList = employee,
                 VoucherViewModel = _vouchers,
+                ServiceList = service
             };
             if (items == null)
                 return View("NotFound");

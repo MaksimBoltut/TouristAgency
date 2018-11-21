@@ -30,5 +30,7 @@ namespace TouristAgency.Models
         public Employee Employee { get; set; }
         public Hotel Hotel { get; set; }
         public TypeRest TypeRest { get; set; }
+        
+        public ICollection<ServiceList> ServiceList { get; set; }
     }
 }

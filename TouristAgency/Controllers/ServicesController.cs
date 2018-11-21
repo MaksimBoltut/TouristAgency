@@ -103,12 +103,12 @@ namespace TouristAgency.Controllers
         {
             try
             {
-                var servicelist = context.ServiceList.Where(v => v.SerivceID == id);
-                foreach (ServiceList sl in servicelist)
-                {
-                    context.ServiceList.Remove(sl);
-                }
-                context.SaveChanges();
+                //var servicelist = context.ServiceList.Where(v => v.SerivceID == id);
+                //foreach (ServiceList sl in servicelist)
+                //{
+                //    context.ServiceList.Remove(sl);
+                //}
+                //context.SaveChanges();
                 var service = context._Services.FirstOrDefault(c => c.ListID == id);
                 context._Services.Remove(service);
                 context.SaveChanges();

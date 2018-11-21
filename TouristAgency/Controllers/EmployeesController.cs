@@ -110,14 +110,14 @@ namespace TouristAgency.Controllers
             try
             {
                 var vouchers = context.Vouchers.Where(v => v.EmployeeID == id);
-                foreach(Voucher voucher in vouchers)
+                foreach (Voucher voucher in vouchers)
                 {
                     context.Vouchers.Remove(voucher);
                 }
                 context.SaveChanges();
                 var employee = context.Employees.FirstOrDefault(c => c.ID == id);
-                context.Employees.Remove(employee);
-                context.SaveChanges();
+                    context.Employees.Remove(employee);
+                    context.SaveChanges();
             }
             catch { }
             return RedirectToAction("index");

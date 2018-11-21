@@ -164,7 +164,7 @@ namespace TouristAgency.Models
                 int voucherid = randObj.Next(1, vouchers_number - 1);
                 db.ServiceList.Add(new ServiceList
                 {
-                    SerivceID = serviceid,
+                    ServiceID = serviceid,
                     VoucherID = voucherid
                 });
             }

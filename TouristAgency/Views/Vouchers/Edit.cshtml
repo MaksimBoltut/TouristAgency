@@ -10,47 +10,48 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="VoucherViewModel.DateBeginning" class="control-label"></label>
-                <input asp-for="VoucherViewModel.DateBeginning" class="form-control" />
-                <span asp-validation-for="VoucherViewModel.DateBeginning" class="text-danger"></span>
+                <label asp-for="Vouchers.First().DateBeginning" class="control-label"></label>
+                <input asp-for="Vouchers.First().DateBeginning" class="form-control" />
+                <span asp-validation-for="Vouchers.First().DateBeginning" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VoucherViewModel.ExpirationDate" class="control-label"></label>
-                <input asp-for="VoucherViewModel.ExpirationDate" class="form-control" />
-                <span asp-validation-for="VoucherViewModel.ExpirationDate" class="text-danger"></span>
+                <label asp-for="Vouchers.First().ExpirationDate" class="control-label"></label>
+                <input asp-for="Vouchers.First().ExpirationDate" class="form-control" />
+                <span asp-validation-for="Vouchers.First().ExpirationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VoucherViewModel.HotelName" class="control-label"></label>
-                <input asp-for="VoucherViewModel.HotelName" class="form-control" />
-                <span asp-validation-for="VoucherViewModel.HotelName" class="text-danger"></span>
+                <label asp-for="Vouchers.First().HotelID" class="control-label"></label>
+                <select asp-for="Vouchers.First().HotelID" class="form-control" asp-items="Model.HotelList"></select>
+                <span asp-validation-for="Vouchers.First().HotelID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VoucherViewModel.TypeRestName" class="control-label"></label>
-                <input asp-for="VoucherViewModel.TypeRestName" class="form-control" />
-                <span asp-validation-for="VoucherViewModel.TypeRestName" class="text-danger"></span>
+                <label asp-for="Vouchers.First().TypeRestID" class="control-label"></label>
+                <select asp-for="Vouchers.First().TypeRestID" class="form-control" asp-items="Model.TypeRestList"></select>
+                <span asp-validation-for="Vouchers.First().TypeRestID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VoucherViewModel.ClientFullName" class="control-label"></label>
-                <input asp-for="VoucherViewModel.ClientFullName" class="form-control" />
-                <span asp-validation-for="VoucherViewModel.ClientFullName" class="text-danger"></span>
+                <label asp-for="Vouchers.First().ClientID" class="control-label"></label>
+                <select asp-for="Vouchers.First().ClientID" class="form-control" asp-items="Model.ClientList"></select>
+                <span asp-validation-for="Vouchers.First().ClientID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VoucherViewModel.EmployeeFullName" class="control-label"></label>
-                <input asp-for="VoucherViewModel.EmployeeFullName" class="form-control" />
-                <span asp-validation-for="VoucherViewModel.EmployeeFullName" class="text-danger"></span>
+                <label asp-for="Vouchers.First().EmployeeID" class="control-label"></label>
+                <select asp-for="Vouchers.First().EmployeeID" class="form-control" asp-items="Model.EmployeeList"></select>
+                <span asp-validation-for="Vouchers.First().EmployeeID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="VoucherViewModel.BookingNote" /> @Html.DisplayNameFor(model => model.VoucherViewModel.BookingNote)
+                        <input asp-for="Vouchers.First().BookingNote" /> @Html.DisplayNameFor(model => model.VoucherViewModel.BookingNote)
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="VoucherViewModel.PaymentNote" /> @Html.DisplayNameFor(model => model.VoucherViewModel.PaymentNote)
+                        <input asp-for="Vouchers.First().PaymentNote" /> @Html.DisplayNameFor(model => model.VoucherViewModel.PaymentNote)
                     </label>
                 </div>
             </div>

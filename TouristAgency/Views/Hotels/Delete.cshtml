@@ -1,4 +1,4 @@
-﻿@model TouristAgency.Models.Voucher
+﻿@model TouristAgency.Models.Hotel
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,7 +8,7 @@
 <h3>Вы уверены, что хотите удалить данную запись?</h3>
 <h3>В случае удаление, все путёвки с данным отелем будут удалены</h3>
 <div>
-    <h4>Voucher</h4>
+    <h4>Hotel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,52 +18,52 @@
             @Html.DisplayFor(model => model.ID)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DateBeginning)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateBeginning)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
+            @Html.DisplayNameFor(model => model.Country)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ExpirationDate)
+            @Html.DisplayFor(model => model.Country)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HotelID)
+            @Html.DisplayNameFor(model => model.City)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.HotelID)
+            @Html.DisplayFor(model => model.City)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TypeRestID)
+            @Html.DisplayNameFor(model => model.Adress)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TypeRestID)
+            @Html.DisplayFor(model => model.Adress)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClientID)
+            @Html.DisplayNameFor(model => model.Telephone)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClientID)
+            @Html.DisplayFor(model => model.Telephone)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EmployeeID)
+            @Html.DisplayNameFor(model => model.Stars)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EmployeeID)
+            @Html.DisplayFor(model => model.Stars)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BookingNote)
+            @Html.DisplayNameFor(model => model.ContactFace)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BookingNote)
+            @Html.DisplayFor(model => model.ContactFace)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PaymentNote)
+            @Html.DisplayNameFor(model => model.FotoHotel)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PaymentNote)
+            @Html.DisplayFor(model => model.FotoHotel)
         </dd>
     </dl>
     

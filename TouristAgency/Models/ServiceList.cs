@@ -8,8 +8,8 @@ namespace TouristAgency.Models
     public class ServiceList
     {
         public int ID { get; set; }
-        public int? SerivceID { get; set; }
-        public int? VoucherID { get; set; }
+        public int ServiceID { get; set; }
+        public int VoucherID { get; set; }
         public Voucher Voucher { get; set; }
         public Service Service { get; set; }
     }

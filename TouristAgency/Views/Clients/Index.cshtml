@@ -93,8 +93,8 @@
                 @Html.DisplayFor(modelItem => item.Discount)
             </td>
             <td>
-                @Html.ActionLink("Изменение", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Удаление", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Изменить", "Edit", new { id=item.ID }, null) |
+                @Html.ActionLink("Удалить", "Delete", new { id=item.ID }, null)
             </td>
         </tr>
 }

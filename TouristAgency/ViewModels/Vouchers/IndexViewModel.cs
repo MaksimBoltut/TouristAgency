@@ -15,6 +15,7 @@ namespace TouristAgency.ViewModels.Vouchers
         public SelectList TypeRestList { get; set; }
         public SelectList EmployeeList { get; set; }
         public SelectList HotelList { get; set; }
+        public SelectList ServiceList { get; set; }
         public VoucherViewModel VoucherViewModel { get; set; }
         public FilterViewModel FilterViewModel { get; set; }
         public SortViewModel SortViewModel { get; set; }

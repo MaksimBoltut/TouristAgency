@@ -16,7 +16,7 @@
     </div>
 </form>
 <p>
-    <a asp-action="Create">Добавление новой записи</a>
+    <a asp-action="Create">Добавить новую запись</a>
 </p>
 <table class="table" border="1" cellspacing="100">
     <thead>
@@ -40,6 +40,9 @@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.TypeRestIDSort)"
                    asp-route-id="@(Model.FilterViewModel.SelectedId)">Наименование типа отдыха</a>
+            </th>
+            <th>
+                Список сервисов
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@(Model.SortViewModel.ClientIDSort)"
@@ -79,6 +82,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TypeRest.Name)
                 </td>
+                <td>
+                    @foreach(var p in item.ServiceList)
+                    {
+                        <li>@p.Service.Name</li>
+
+                    }
                 <td>
                     @Html.DisplayFor(modelItem => item.Client.FullName)
                 </td>
