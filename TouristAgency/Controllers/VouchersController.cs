@@ -120,7 +120,7 @@ namespace TouristAgency.Controllers
             var typerest = new SelectList(context.TypeRests, "ID", "Name", items.First().TypeRestID);
             var client = new SelectList(context.Clients, "ID", "FullName", items.First().ClientID);
             var employee = new SelectList(context.Employees, "ID", "Fullname", items.First().EmployeeID);
-            var service = new SelectList(context._Services, "ID", "Name");
+            var service = new SelectList(context._Services, "ListID", "Name");
             IndexViewModel voucher = new IndexViewModel
             {
                 Vouchers = items,
@@ -149,10 +149,10 @@ namespace TouristAgency.Controllers
             var voucherContext = context.Vouchers.Include(p => p.Hotel).Include(p => p.TypeRest).Include(p => p.Client).Include(p => p.Employee)
                 .Include(o => o.ServiceList).ThenInclude(i => i.Service);
             var items = voucherContext.Where(p => p.ID == id).ToList();
-            var hotel = new SelectList(context.Hotels, "HotelID", "Name", items.First().HotelID);
-            var typerest = new SelectList(context.TypeRests, "TypeRestID", "Name", items.First().TypeRestID);
-            var client = new SelectList(context.Clients, "ClientID", "FullName", items.First().ClientID);
-            var employee = new SelectList(context.Employees, "EmployeeID", "FullName", items.First().EmployeeID);
+            var hotel = new SelectList(context.Hotels, "ID", "Name");
+            var typerest = new SelectList(context.TypeRests, "ID", "Name");
+            var client = new SelectList(context.Clients, "ID", "FullName");
+            var employee = new SelectList(context.Employees, "ID", "Fullname");
             var service = new SelectList(context._Services, "ID", "Name");
             VoucherViewModel voucherView = new VoucherViewModel
             {
@@ -173,7 +173,7 @@ namespace TouristAgency.Controllers
                 TypeRestList = typerest,
                 ClientList = client,
                 EmployeeList = employee,
-                VoucherViewModel = _vouchers,
+                VoucherViewModel = voucherView,
                 ServiceList = service
             };
             if (items == null)
@@ -198,13 +198,14 @@ namespace TouristAgency.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var hotel = new SelectList(context.Hotels, "HotelID", "Name");
-            var typerest = new SelectList(context.TypeRests, "TypeRestID", "Name");
-            var client = new SelectList(context.Clients, "ClientID", "FullName");
-            var employee = new SelectList(context.Employees, "EmployeeID", "FullName");
+            var hotel = new SelectList(context.Hotels, "ID", "Name");
+            var typerest = new SelectList(context.TypeRests, "ID", "Name");
+            var client = new SelectList(context.Clients, "ID", "FullName");
+            var employee = new SelectList(context.Employees, "ID", "Fullname");
+            var servicelist = new SelectList(context._Services, "ID", "Name");
             ViewBag.HotelID = hotel;
-            ViewBag.TypeRestID = typerest;
             ViewBag.ClientID = client;
+            ViewBag.TypeRestID = typerest;
             ViewBag.EmployeeID = employee;
             return View();
         }

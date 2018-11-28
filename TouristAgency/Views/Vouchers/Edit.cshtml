@@ -22,22 +22,27 @@
                 <span asp-validation-for="Vouchers.First().ExpirationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vouchers.First().HotelID" class="control-label"></label>
+                <label asp-for="Vouchers.First().HotelID" class="control-label">Название отеля</label>
                 <select asp-for="Vouchers.First().HotelID" class="form-control" asp-items="Model.HotelList"></select>
                 <span asp-validation-for="Vouchers.First().HotelID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vouchers.First().TypeRestID" class="control-label"></label>
+                <label asp-for="Vouchers.First().TypeRestID" class="control-label">Наименование типа отдыха</label>
                 <select asp-for="Vouchers.First().TypeRestID" class="form-control" asp-items="Model.TypeRestList"></select>
                 <span asp-validation-for="Vouchers.First().TypeRestID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vouchers.First().ClientID" class="control-label"></label>
+                <label asp-for="Vouchers.First().ServiceList" class="control-label">Список сервисов</label>
+                <select asp-for="Vouchers.First().ServiceList" class="form-control" asp-items="Model.ServiceList"></select>
+                <span asp-validation-for="Vouchers.First().ServiceList" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vouchers.First().ClientID" class="control-label">ФИО клиента</label>
                 <select asp-for="Vouchers.First().ClientID" class="form-control" asp-items="Model.ClientList"></select>
                 <span asp-validation-for="Vouchers.First().ClientID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vouchers.First().EmployeeID" class="control-label"></label>
+                <label asp-for="Vouchers.First().EmployeeID" class="control-label">ФИО работника</label>
                 <select asp-for="Vouchers.First().EmployeeID" class="form-control" asp-items="Model.EmployeeList"></select>
                 <span asp-validation-for="Vouchers.First().EmployeeID" class="text-danger"></span>
             </div>

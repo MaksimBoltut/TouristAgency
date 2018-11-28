@@ -25,7 +25,7 @@ namespace TouristAgency.Controllers
 
             IQueryable<Employee> source = context.Employees;
 
-            if(id != null && id != 0)
+            if (id != null && id != 0)
             {
                 source = source.Where(p => p.ID == id);
             }
@@ -109,15 +109,9 @@ namespace TouristAgency.Controllers
         {
             try
             {
-                var vouchers = context.Vouchers.Where(v => v.EmployeeID == id);
-                foreach (Voucher voucher in vouchers)
-                {
-                    context.Vouchers.Remove(voucher);
-                }
-                context.SaveChanges();
                 var employee = context.Employees.FirstOrDefault(c => c.ID == id);
-                    context.Employees.Remove(employee);
-                    context.SaveChanges();
+                context.Employees.Remove(employee);
+                context.SaveChanges();
             }
             catch { }
             return RedirectToAction("index");

@@ -97,12 +97,6 @@ namespace TouristAgency.Controllers
         {
             try
             {
-                var vouchers = context.Vouchers.Where(v => v.TypeRestID == id);
-                foreach (Voucher voucher in vouchers)
-                {
-                    context.Vouchers.Remove(voucher);
-                }
-                context.SaveChanges();
                 var typerest = context.TypeRests.FirstOrDefault(c => c.ID == id);
                 context.TypeRests.Remove(typerest);
                 context.SaveChanges();

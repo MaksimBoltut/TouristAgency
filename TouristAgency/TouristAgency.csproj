@@ -5,6 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Новая папка1\**" />
+    <Compile Remove="ViewModels\Новая папка2\**" />
+    <Compile Remove="ViewModels\Новая папка\**" />
+    <Content Remove="ViewModels\Новая папка1\**" />
+    <Content Remove="ViewModels\Новая папка2\**" />
+    <Content Remove="ViewModels\Новая папка\**" />
+    <EmbeddedResource Remove="ViewModels\Новая папка1\**" />
+    <EmbeddedResource Remove="ViewModels\Новая папка2\**" />
+    <EmbeddedResource Remove="ViewModels\Новая папка\**" />
+    <None Remove="ViewModels\Новая папка1\**" />
+    <None Remove="ViewModels\Новая папка2\**" />
+    <None Remove="ViewModels\Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4" />
@@ -13,12 +28,6 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Новая папка1\" />
-    <Folder Include="ViewModels\Новая папка2\" />
-    <Folder Include="ViewModels\Новая папка\" />
   </ItemGroup>
 
 </Project>

@@ -121,11 +121,11 @@ namespace TouristAgency.Controllers
         {
             try
             {
-                var vouchers = context.Vouchers.Where(v => v.HotelID == id);
-                foreach (Voucher voucher in vouchers)
-                {
-                    context.Vouchers.Remove(voucher);
-                }
+                //var vouchers = context.Vouchers.Where(v => v.HotelID == id);
+                //foreach (Voucher voucher in vouchers)
+                //{
+                //    context.Vouchers.Remove(voucher);
+                //}
                 context.SaveChanges();
                 var hotel = context.Hotels.FirstOrDefault(c => c.ID == id);
                 context.Hotels.Remove(hotel);

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TouristAgency.Models;
 
 namespace TouristAgency.ViewModels
 {
@@ -24,6 +26,9 @@ namespace TouristAgency.ViewModels
 
         [Display(Name = "Название типа отдыха")]
         public string TypeRestName { get; set; }
+
+        [Display(Name = "Список сервисов")]
+        public List<Service> ServiceList { get; set; }
 
         [Display(Name = "ФИО клиента")]
         public string ClientFullName { get; set; }

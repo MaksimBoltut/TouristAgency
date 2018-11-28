@@ -86,8 +86,8 @@
                     @foreach(var p in item.ServiceList)
                     {
                         <li>@p.Service.Name</li>
-
                     }
+                    @*@Html.ActionLink("Подробнее ", "Details", new { id = item.ID })*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Client.FullName)
                 </td>
@@ -101,8 +101,8 @@
                     @Html.DisplayFor(modelItem => item.PaymentNote)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {  id=item.ID  }) |
-                    @Html.ActionLink("Delete", "Delete", new {  id=item.ID })
+                    @Html.ActionLink("Изменить", "Edit", new {  id=item.ID  }) |
+                    @Html.ActionLink("Удалить", "Delete", new {  id=item.ID })
                 </td>
             </tr>
         }

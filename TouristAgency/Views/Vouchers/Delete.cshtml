@@ -1,4 +1,4 @@
-﻿@model TouristAgency.Models.Voucher
+﻿@model TouristAgency.ViewModels.Vouchers.IndexViewModel;
 
 @{
     ViewData["Title"] = "Delete";
@@ -9,58 +9,70 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ID)
+            @Html.DisplayNameFor(model => model.Vouchers.First().ID)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ID)
+            @Html.DisplayFor(model => model.Vouchers.First().ID)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DateBeginning)
+            @Html.DisplayNameFor(model => model.Vouchers.First().DateBeginning)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateBeginning)
+            @Html.DisplayFor(model => model.Vouchers.First().DateBeginning)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ExpirationDate)
+            @Html.DisplayNameFor(model => model.Vouchers.First().ExpirationDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ExpirationDate)
+            @Html.DisplayFor(model => model.Vouchers.First().ExpirationDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.HotelID)
+            @Html.DisplayNameFor(model => model.VoucherViewModel.HotelName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.HotelID)
+            @Html.DisplayFor(model => model.VoucherViewModel.HotelName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.TypeRestID)
+            @Html.DisplayNameFor(model => model.VoucherViewModel.TypeRestName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.TypeRestID)
+            @Html.DisplayFor(model => model.VoucherViewModel.TypeRestName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ClientID)
+            Список сервисов
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ClientID)
+            @foreach (var item in Model.Vouchers)
+            {
+                @foreach (var p in item.ServiceList)
+                {
+                    <li>@p.Service.Name</li>
+                }
+            }
+        <dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VoucherViewModel.ClientFullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VoucherViewModel.ClientFullName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EmployeeID)
+            @Html.DisplayNameFor(model => model.VoucherViewModel.EmployeeFullName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EmployeeID)
+            @Html.DisplayFor(model => model.VoucherViewModel.EmployeeFullName)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.BookingNote)
+            @Html.DisplayNameFor(model => model.Vouchers.First().BookingNote)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BookingNote)
+            @Html.DisplayFor(model => model.Vouchers.First().BookingNote)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PaymentNote)
+            @Html.DisplayNameFor(model => model.Vouchers.First().PaymentNote)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PaymentNote)
+            @Html.DisplayFor(model => model.Vouchers.First().PaymentNote)
         </dd>
     </dl>
     
