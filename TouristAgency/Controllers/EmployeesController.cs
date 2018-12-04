@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TouristAgency.ViewModels.Employees;
+using TouristAgency.Infrastructure.Filters;
+using TouristAgency.Infrastructure;
 
 namespace TouristAgency.Controllers
 {
@@ -19,8 +21,25 @@ namespace TouristAgency.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index(int? id, string fullname, int page = 1, SortState sortOrder = SortState.IdAsc)
+        [SetToSession("Employees")]
+        public async Task<IActionResult> Index(int? id, string fullname, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
+            var sessionEmployees = HttpContext.Session.Get("Employees");
+            if (sessionEmployees != null && id == null && fullname == null && page == 0 && sortOrder == SortState.IdAsc)
+            {
+                if (sessionEmployees.Keys.Contains("id"))
+                    id = Convert.ToInt32(sessionEmployees["id"]);
+                if (sessionEmployees.Keys.Contains("fullname"))
+                    fullname = sessionEmployees["fullname"];
+                if (sessionEmployees.Keys.Contains("page"))
+                    page = Convert.ToInt32(sessionEmployees["page"]);
+                if (sessionEmployees.Keys.Contains("sortOrder"))
+                    sortOrder = (SortState)Enum.Parse(typeof(SortState), sessionEmployees["sortOrder"]);
+            }
+
+            if (page == 0)
+                page = 1;
+
             int pageSize = 10;
 
             IQueryable<Employee> source = context.Employees;

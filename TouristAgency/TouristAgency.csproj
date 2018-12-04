@@ -7,16 +7,12 @@
   <ItemGroup>
     <Compile Remove="ViewModels\Новая папка1\**" />
     <Compile Remove="ViewModels\Новая папка2\**" />
-    <Compile Remove="ViewModels\Новая папка\**" />
     <Content Remove="ViewModels\Новая папка1\**" />
     <Content Remove="ViewModels\Новая папка2\**" />
-    <Content Remove="ViewModels\Новая папка\**" />
     <EmbeddedResource Remove="ViewModels\Новая папка1\**" />
     <EmbeddedResource Remove="ViewModels\Новая папка2\**" />
-    <EmbeddedResource Remove="ViewModels\Новая папка\**" />
     <None Remove="ViewModels\Новая папка1\**" />
     <None Remove="ViewModels\Новая папка2\**" />
-    <None Remove="ViewModels\Новая папка\**" />
   </ItemGroup>
 
   <ItemGroup>

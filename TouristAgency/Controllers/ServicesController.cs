@@ -7,6 +7,8 @@ using TouristAgency.Models;
 using TouristAgency.ViewModels.Services;
 using Microsoft.EntityFrameworkCore;
 using TouristAgency.ViewModels;
+using TouristAgency.Infrastructure.Filters;
+using TouristAgency.Infrastructure;
 
 namespace TouristAgency.Controllers
 {
@@ -19,8 +21,25 @@ namespace TouristAgency.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index(int? id, string name, int page = 1, SortState sortOrder = SortState.IdAsc)
+        [SetToSession("Services")]
+        public async Task<IActionResult> Index(int? id, string name, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
+            var sessionService = HttpContext.Session.Get("Services");
+            if (sessionService != null && id == null && name == null && page == 0 && sortOrder == SortState.IdAsc)
+            {
+                if (sessionService.Keys.Contains("id"))
+                    id = Convert.ToInt32(sessionService["id"]);
+                if (sessionService.Keys.Contains("name"))
+                    name = sessionService["name"];
+                if (sessionService.Keys.Contains("page"))
+                    page = Convert.ToInt32(sessionService["page"]);
+                if (sessionService.Keys.Contains("sortOrder"))
+                    sortOrder = (SortState)Enum.Parse(typeof(SortState), sessionService["sortOrder"]);
+            }
+
+            if (page == 0)
+                page = 1;
+
             int pageSize = 10;
 
             IQueryable<Service> source = context._Services;

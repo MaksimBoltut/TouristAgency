@@ -7,6 +7,8 @@ using TouristAgency.Models;
 using TouristAgency.ViewModels.Hotels;
 using Microsoft.EntityFrameworkCore;
 using TouristAgency.ViewModels;
+using TouristAgency.Infrastructure.Filters;
+using TouristAgency.Infrastructure;
 
 namespace TouristAgency.Controllers
 {
@@ -19,8 +21,25 @@ namespace TouristAgency.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index(int? id, string fullname, int page = 1, SortState sortOrder = SortState.IdAsc)
+        [SetToSession("Hotels")]
+        public async Task<IActionResult> Index(int? id, string fullname, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
+            var sessionHotels = HttpContext.Session.Get("Hotels");
+            if (sessionHotels != null && id == null && fullname == null && page == 0 && sortOrder == SortState.IdAsc)
+            {
+                if (sessionHotels.Keys.Contains("id"))
+                    id = Convert.ToInt32(sessionHotels["id"]);
+                if (sessionHotels.Keys.Contains("fullname"))
+                    fullname = sessionHotels["fullname"];
+                if (sessionHotels.Keys.Contains("page"))
+                    page = Convert.ToInt32(sessionHotels["page"]);
+                if (sessionHotels.Keys.Contains("sortOrder"))
+                    sortOrder = (SortState)Enum.Parse(typeof(SortState), sessionHotels["sortOrder"]);
+            }
+
+            if (page == 0)
+                page = 1;
+
             int pageSize = 10;
 
             IQueryable<Hotel> source = context.Hotels;
@@ -121,11 +140,6 @@ namespace TouristAgency.Controllers
         {
             try
             {
-                //var vouchers = context.Vouchers.Where(v => v.HotelID == id);
-                //foreach (Voucher voucher in vouchers)
-                //{
-                //    context.Vouchers.Remove(voucher);
-                //}
                 context.SaveChanges();
                 var hotel = context.Hotels.FirstOrDefault(c => c.ID == id);
                 context.Hotels.Remove(hotel);

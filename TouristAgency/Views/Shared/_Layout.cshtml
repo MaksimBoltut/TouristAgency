@@ -26,17 +26,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Туристическое Агентство</a>
+                <a asp-area="" asp-controller="Vouchers" asp-action="Index" class="navbar-brand">Туристическое Агентство</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                @if (User.Identity.IsAuthenticated)
+                {
                     <li><a asp-area="" asp-controller="Vouchers" asp-action="Index">Путёвки</a></li>
                     <li><a asp-area="" asp-controller="Clients" asp-action="Index">Клиенты</a></li>
                     <li><a asp-area="" asp-controller="Hotels" asp-action="Index">Отели</a></li>
                     <li><a asp-area="" asp-controller="Services" asp-action="Index">Сервисы</a></li>
                     <li><a asp-area="" asp-controller="TypeRests" asp-action="Index">Виды отдыха</a></li>
                     <li><a asp-area="" asp-controller="Employees" asp-action="Index">Работники</a></li>
+                    @*<li><a asp-area="" asp-controller="ServiceList" asp-action="Index">Сервисы забронированные путёвками</a></li>*@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Контакты</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Выход</a></li>
+                }
+                else
+                {
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Вход</a></li>
+                }
                 </ul>
             </div>
         </div>

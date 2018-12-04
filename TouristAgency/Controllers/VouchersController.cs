@@ -8,6 +8,8 @@ using TouristAgency.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using TouristAgency.ViewModels.Vouchers;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TouristAgency.Infrastructure.Filters;
+using TouristAgency.Infrastructure;
 
 namespace TouristAgency.Controllers
 {
@@ -26,9 +28,24 @@ namespace TouristAgency.Controllers
         {
             this.context = context;
         }
-
-        public async Task<IActionResult> Index(int? id, int page = 1, SortState sortOrder = SortState.IdAsc)
+        
+        [SetToSession("Vouchers")]
+        public async Task<IActionResult> Index(int? id, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
+            var sessionVouchers = HttpContext.Session.Get("Vouchers");
+            if (sessionVouchers != null && id == null && page == 0 && sortOrder == SortState.IdAsc)
+            {
+                if (sessionVouchers.Keys.Contains("id"))
+                    id = Convert.ToInt32(sessionVouchers["id"]);
+                if (sessionVouchers.Keys.Contains("page"))
+                    page = Convert.ToInt32(sessionVouchers["page"]);
+                if (sessionVouchers.Keys.Contains("sortOrder"))
+                    sortOrder = (SortState)Enum.Parse(typeof(SortState), sessionVouchers["sortOrder"]);
+            }
+
+            if (page == 0)
+                page = 1;
+
             int pageSize = 10;
 
             IQueryable<Voucher> source = context.Vouchers.Include(p => p.Hotel).Include(o => o.TypeRest).
@@ -131,12 +148,23 @@ namespace TouristAgency.Controllers
                 ServiceList = service,
                 VoucherViewModel = _vouchers,
             };
+
+            ViewBag.Services = context._Services;
+
             return View(voucher);
         }
 
         [HttpPost]
-        public ActionResult Edit(Voucher voucher)
+        public ActionResult Edit(Voucher voucher, int[] services) //Исправить
         {
+            List<ServiceList> list = new List<ServiceList>();
+
+            foreach (var s in services)
+            {
+                context.ServiceList.Add(new ServiceList { VoucherID = voucher.ID, ServiceID = s });
+                context.SaveChangesAsync();
+            }
+
             context.Vouchers.Update(voucher);
             context.SaveChanges();
             return RedirectToAction("Index");

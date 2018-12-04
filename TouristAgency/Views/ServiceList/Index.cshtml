@@ -1,0 +1,58 @@
+﻿@using TouristAgency.Models
+@using TouristAgency.ViewModels
+@using TouristAgency.ViewModels.ServiceList
+@model TouristAgency.ViewModels.ServiceList.IndexViewModel;
+@addTagHelper "*, TouristAgency"
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Код путёвки: </label>
+        @Html.TextBox("id", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Поиск" class="btn btn-default" />
+    </div>
+</form>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceList.First().ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceList.First().ServiceID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceList.First().VoucherID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ServiceList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Service.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VoucherID)
+                </td>
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id=item.ID }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+            </tr>
+        }
+    </tbody>
+</table>
+<page-link page-model="@Model.PageViewModel" page-action="Index"
+           page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)"></page-link>

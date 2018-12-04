@@ -32,9 +32,20 @@
                 <span asp-validation-for="Vouchers.First().TypeRestID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Vouchers.First().ServiceList" class="control-label">Список сервисов</label>
-                <select asp-for="Vouchers.First().ServiceList" class="form-control" asp-items="Model.ServiceList"></select>
-                <span asp-validation-for="Vouchers.First().ServiceList" class="text-danger"></span>
+
+                <div style="height: 200px; overflow:auto;">
+                @foreach (var s in ViewBag.Services)
+                {
+                    if (Model.Vouchers.First().ServiceList.Where(p => p.ServiceID == s.ListID).Count() != 0)
+                    {
+                        <p><input type="checkbox" checked value="@s.ListID" name="services" />@s.Name</p>
+                    }
+                    else
+                    {
+                        <p><input type="checkbox" value="@s.ListID" name="services" />@s.Name</p>
+                    }
+                }
+                </div> 
             </div>
             <div class="form-group">
                 <label asp-for="Vouchers.First().ClientID" class="control-label">ФИО клиента</label>

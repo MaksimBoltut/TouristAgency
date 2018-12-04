@@ -20,9 +20,12 @@
     </div>
 </form>
 
+@if (User.IsInRole("Admin"))
+{
 <p>
     <a asp-action="Create">Добавить новую запись</a>
 </p>
+}
 <table class="table" border="1" cellspacing="100">
     <thead>
         <tr>
@@ -65,10 +68,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            <td>
-                @Html.ActionLink("Изменить", "Edit", new { id=item.ListID }, null) |
-                @Html.ActionLink("Удалить", "Delete", new { id=item.ListID }, null)
-            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Изменить", "Edit", new { id = item.ListID }, null) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.ListID }, null)
+                </td>
+            }
         </tr>
 }
     </tbody>

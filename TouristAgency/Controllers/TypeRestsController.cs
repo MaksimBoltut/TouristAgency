@@ -7,6 +7,8 @@ using TouristAgency.Models;
 using TouristAgency.ViewModels.TypeRests;
 using Microsoft.EntityFrameworkCore;
 using TouristAgency.ViewModels;
+using TouristAgency.Infrastructure.Filters;
+using TouristAgency.Infrastructure;
 
 namespace TouristAgency.Controllers
 {
@@ -19,8 +21,25 @@ namespace TouristAgency.Controllers
             this.context = context;
         }
 
-        public async Task<IActionResult> Index(int? id, string name, int page = 1, SortState sortOrder = SortState.IdAsc)
+        [SetToSession("TypeRests")]
+        public async Task<IActionResult> Index(int? id, string name, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
+            var sessionTypeRests = HttpContext.Session.Get("TypeRests");
+            if (sessionTypeRests != null && id == null && name == null && page == 0 && sortOrder == SortState.IdAsc)
+            {
+                if (sessionTypeRests.Keys.Contains("id"))
+                    id = Convert.ToInt32(sessionTypeRests["id"]);
+                if (sessionTypeRests.Keys.Contains("name"))
+                    name = sessionTypeRests["name"];
+                if (sessionTypeRests.Keys.Contains("page"))
+                    page = Convert.ToInt32(sessionTypeRests["page"]);
+                if (sessionTypeRests.Keys.Contains("sortOrder"))
+                    sortOrder = (SortState)Enum.Parse(typeof(SortState), sessionTypeRests["sortOrder"]);
+            }
+
+            if (page == 0)
+                page = 1;
+
             int pageSize = 10;
 
             IQueryable<TypeRest> source = context.TypeRests;
