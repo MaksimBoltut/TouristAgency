@@ -11,8 +11,7 @@ namespace TouristAgency.Models
         public static void Initialize(AgencyContext db)
         {
             db.Database.EnsureCreated();
-
-            // Проверка занесены ли виды топлива
+            
             if (db.Hotels.Any())
             {
                 return;   // База данных инициализирована

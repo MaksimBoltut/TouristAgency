@@ -20,8 +20,8 @@ namespace TouristAgency.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ServiceList>()
-                .HasKey(t => new { t.VoucherID, t.ServiceID });
+            //modelBuilder.Entity<ServiceList>()
+            //    .HasKey(t => new { t.VoucherID, t.ServiceID });
 
             modelBuilder.Entity<ServiceList>()
                 .HasOne(sc => sc.Voucher)

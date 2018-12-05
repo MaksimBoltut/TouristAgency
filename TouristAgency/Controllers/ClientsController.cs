@@ -24,13 +24,17 @@ namespace TouristAgency.Controllers
         [SetToSession("Clients")]
         public async Task<IActionResult> Index(int? id, string fullname, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
-            var sessionClients = HttpContext.Session.Get("Buildings");
+            var sessionClients = HttpContext.Session.Get("Clients");
             if (sessionClients != null && id == null && fullname == null && page == 0 && sortOrder == SortState.IdAsc)
             {
-                if (sessionClients.Keys.Contains("id"))
-                    id = Convert.ToInt32(sessionClients["id"]);
-                if (sessionClients.Keys.Contains("fullname"))
-                    fullname = sessionClients["fullname"];
+                try
+                {
+                    if (sessionClients.Keys.Contains("id"))
+                        id = Convert.ToInt32(sessionClients["id"]);
+                    if (sessionClients.Keys.Contains("fullname"))
+                        fullname = sessionClients["fullname"];
+                }
+                catch { }
                 if (sessionClients.Keys.Contains("page"))
                     page = Convert.ToInt32(sessionClients["page"]);
                 if (sessionClients.Keys.Contains("sortOrder"))

@@ -81,7 +81,7 @@ namespace TouristAgency.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
-            ServiceList sl = context.ServiceList.Find(id);
+            ServiceList sl = context.ServiceList.Where(p => p.ID == id).First();
 
             if (sl == null)
                 return View("NotFound");

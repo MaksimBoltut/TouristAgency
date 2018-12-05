@@ -35,8 +35,12 @@ namespace TouristAgency.Controllers
             var sessionVouchers = HttpContext.Session.Get("Vouchers");
             if (sessionVouchers != null && id == null && page == 0 && sortOrder == SortState.IdAsc)
             {
-                if (sessionVouchers.Keys.Contains("id"))
-                    id = Convert.ToInt32(sessionVouchers["id"]);
+                try
+                {
+                    if (sessionVouchers.Keys.Contains("id"))
+                        id = Convert.ToInt32(sessionVouchers["id"]);
+                }
+                catch { }
                 if (sessionVouchers.Keys.Contains("page"))
                     page = Convert.ToInt32(sessionVouchers["page"]);
                 if (sessionVouchers.Keys.Contains("sortOrder"))
@@ -155,18 +159,19 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Voucher voucher, int[] services) //Исправить
+        public async Task<ActionResult> Edit(Voucher voucher, int[] services) //Исправить
         {
-            List<ServiceList> list = new List<ServiceList>();
+            var serviceLists = context.ServiceList.Where(s => s.VoucherID == voucher.ID);
+            context.ServiceList.RemoveRange(serviceLists);
+            context.SaveChanges();
 
             foreach (var s in services)
             {
-                context.ServiceList.Add(new ServiceList { VoucherID = voucher.ID, ServiceID = s });
-                context.SaveChangesAsync();
+                context.ServiceList.Add(new ServiceList { ServiceID = s, VoucherID = voucher.ID });
             }
-
             context.Vouchers.Update(voucher);
-            context.SaveChanges();
+
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

@@ -27,10 +27,14 @@ namespace TouristAgency.Controllers
             var sessionService = HttpContext.Session.Get("Services");
             if (sessionService != null && id == null && name == null && page == 0 && sortOrder == SortState.IdAsc)
             {
-                if (sessionService.Keys.Contains("id"))
-                    id = Convert.ToInt32(sessionService["id"]);
-                if (sessionService.Keys.Contains("name"))
-                    name = sessionService["name"];
+                try
+                {
+                    if (sessionService.Keys.Contains("id"))
+                        id = Convert.ToInt32(sessionService["id"]);
+                    if (sessionService.Keys.Contains("name"))
+                        name = sessionService["name"];
+                }
+                catch { }
                 if (sessionService.Keys.Contains("page"))
                     page = Convert.ToInt32(sessionService["page"]);
                 if (sessionService.Keys.Contains("sortOrder"))
