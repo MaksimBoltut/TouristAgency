@@ -8,7 +8,10 @@ namespace TouristAgency.Models
 {
     public class AgencyContext : DbContext
     {
-        public AgencyContext(DbContextOptions<AgencyContext> options) : base(options) { }
+        public AgencyContext(DbContextOptions<AgencyContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
@@ -20,18 +23,6 @@ namespace TouristAgency.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<ServiceList>()
-            //    .HasKey(t => new { t.VoucherID, t.ServiceID });
-
-            modelBuilder.Entity<ServiceList>()
-                .HasOne(sc => sc.Voucher)
-                .WithMany(s => s.ServiceList)
-                .HasForeignKey(sc => sc.VoucherID);
-
-            modelBuilder.Entity<ServiceList>()
-                .HasOne(sc => sc.Service)
-                .WithMany(c => c.ServiceList)
-                .HasForeignKey(sc => sc.ServiceID);
         }
     }
 }

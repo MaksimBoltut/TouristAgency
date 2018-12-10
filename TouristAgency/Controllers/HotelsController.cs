@@ -120,10 +120,10 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Hotel hotel)
+        public async Task<ActionResult> Edit(Hotel hotel)
         {
             context.Hotels.Update(hotel);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -140,14 +140,14 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 context.SaveChanges();
                 var hotel = context.Hotels.FirstOrDefault(c => c.ID == id);
                 context.Hotels.Remove(hotel);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             catch { }
             return RedirectToAction("index");
@@ -160,10 +160,10 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Hotel hotel)
+        public async Task<ActionResult> Create(Hotel hotel)
         {
             context.Hotels.Add(hotel);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

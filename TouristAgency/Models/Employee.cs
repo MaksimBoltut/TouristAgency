@@ -15,10 +15,12 @@ namespace TouristAgency.Models
         public string Fullname { get; set; }
         [Display(Name = "Должность")]
         public string Position { get; set; }
+        [Range(18, 100)]
         [Display(Name = "Возраст")]
         public int Age { get; set; }
+        [Range(100000, 999999)]
         [Display(Name = "Телефон")]
-        public string Telephone { get; set; }
+        public int Telephone { get; set; }
         public ICollection<Voucher> Vouchers { get; set; }
     }
 }

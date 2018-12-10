@@ -16,12 +16,14 @@ namespace TouristAgency.Models
         [Display(Name = "Дата рождения")]
         [DataType(DataType.Date)]
         public DateTime DateBirth { get; set; }
+        [StringLength(1)]
         [Display(Name = "Пол")]
         public string Sex { get; set; }
         [Display(Name = "Адрес")]
         public string Adress { get; set; }
+        [Range(100000, 999999)]
         [Display(Name = "Телефон")]
-        public string Telephone { get; set; }
+        public int Telephone { get; set; }
         [Display(Name = "Пасспортные данные")]
         public string PassData { get; set; }
         [Display(Name = "Скидка")]

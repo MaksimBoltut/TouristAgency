@@ -22,10 +22,10 @@ namespace TouristAgency.Controllers
         }
 
         [SetToSession("Employees")]
-        public async Task<IActionResult> Index(int? id, string fullname, int page = 0, SortState sortOrder = SortState.IdAsc)
+        public async Task<IActionResult> Index(int? id, string fullname, string position, int? age, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
             var sessionEmployees = HttpContext.Session.Get("Employees");
-            if (sessionEmployees != null && id == null && fullname == null && page == 0 && sortOrder == SortState.IdAsc)
+            if (sessionEmployees != null && id == null && fullname == null && position == null && age == null && page == 0 && sortOrder == SortState.IdAsc)
             {
                 try
                 {
@@ -33,6 +33,10 @@ namespace TouristAgency.Controllers
                         id = Convert.ToInt32(sessionEmployees["id"]);
                     if (sessionEmployees.Keys.Contains("fullname"))
                         fullname = sessionEmployees["fullname"];
+                    if (sessionEmployees.Keys.Contains("position"))
+                        position = sessionEmployees["position"];
+                    if (sessionEmployees.Keys.Contains("age"))
+                        age = Convert.ToInt32(sessionEmployees["age"]);
                 }
                 catch { }
                 if (sessionEmployees.Keys.Contains("page"))
@@ -55,6 +59,14 @@ namespace TouristAgency.Controllers
             if (!String.IsNullOrEmpty(fullname))
             {
                 source = source.Where(p => p.Fullname.Contains(fullname));
+            }
+            if(!String.IsNullOrEmpty(position))
+            {
+                source = source.Where(p => p.Position.Contains(position));
+            }
+            if (age != null && age != 0)
+            {
+                source = source.Where(p => p.Age == age);
             }
 
             switch (sortOrder)
@@ -95,7 +107,7 @@ namespace TouristAgency.Controllers
                 PageViewModel = pageViewModel,
                 Employees = items,
                 SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(context.Employees.ToList(), id, fullname)
+                FilterViewModel = new FilterViewModel(context.Employees.ToList(), id, fullname, position, age)
             };
             return View(viewModel);
         }
@@ -108,10 +120,10 @@ namespace TouristAgency.Controllers
         }
         
         [HttpPost]
-        public ActionResult Edit(Employee employee)
+        public async Task<ActionResult> Edit(Employee employee)
         {
             context.Employees.Update(employee);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
         
@@ -128,13 +140,13 @@ namespace TouristAgency.Controllers
         }
         
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 var employee = context.Employees.FirstOrDefault(c => c.ID == id);
                 context.Employees.Remove(employee);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             catch { }
             return RedirectToAction("index");
@@ -147,10 +159,10 @@ namespace TouristAgency.Controllers
         }
         
         [HttpPost]
-        public ActionResult Create(Employee employee)
+        public async Task<ActionResult> Create(Employee employee)
         {
             context.Employees.Add(employee);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

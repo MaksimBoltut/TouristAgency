@@ -19,8 +19,10 @@ namespace TouristAgency.Models
         public string City { get; set; }
         [Display(Name = "Адрес")]
         public string Adress { get; set; }
+        [Range(100000, 999999)]
         [Display(Name = "Телефон")]
-        public string Telephone { get; set; }
+        public int Telephone { get; set; }
+        [Range(1, 10)]
         [Display(Name = "Кол-во звёзд")]
         public int Stars { get; set; }
         [Display(Name = "Контактное лицо")]

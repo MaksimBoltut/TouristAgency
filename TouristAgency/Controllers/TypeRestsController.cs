@@ -96,10 +96,10 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(TypeRest typerest)
+        public async Task<ActionResult> Edit(TypeRest typerest)
         {
             context.TypeRests.Update(typerest);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -116,13 +116,13 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 var typerest = context.TypeRests.FirstOrDefault(c => c.ID == id);
                 context.TypeRests.Remove(typerest);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             catch { }
             return RedirectToAction("index");
@@ -135,10 +135,10 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(TypeRest typeRest)
+        public async Task<ActionResult> Create(TypeRest typeRest)
         {
             context.TypeRests.Add(typeRest);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

@@ -31,40 +31,42 @@
                 <select asp-for="TypeRestID" class="form-control" asp-items="ViewBag.TypeRestID"></select>
                 <span asp-validation-for="TypeRestID" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ServiceList" class="control-label">Список сервисов</label>
-                <input asp-for="ServiceList" class="form-control" />
-                <span asp-validation-for="ServiceList" class="text-danger"></span>
+            <div style="height: 200px; overflow:auto;">
+                @foreach (var s in ViewBag.Services)
+                {
+                        <p><input type="checkbox" value="@s.ListID" name="services" />@s.Name</p>
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="ClientID" class="control-label">ФИО клиента</label>
-                <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
-                <span asp-validation-for="ClientID" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="ClientID" class="control-label">ФИО клиента</label>
+            <select asp-for="ClientID" class="form-control" asp-items="ViewBag.ClientID"></select>
+            <span asp-validation-for="ClientID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmployeeID" class="control-label">ФИО работника</label>
+            <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
+            <span asp-validation-for="EmployeeID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="BookingNote" /> @Html.DisplayNameFor(model => model.BookingNote)
+                </label>
             </div>
-            <div class="form-group">
-                <label asp-for="EmployeeID" class="control-label">ФИО работника</label>
-                <select asp-for="EmployeeID" class="form-control" asp-items="ViewBag.EmployeeID"></select>
-                <span asp-validation-for="EmployeeID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="PaymentNote" /> @Html.DisplayNameFor(model => model.PaymentNote)
+                </label>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="BookingNote" /> @Html.DisplayNameFor(model => model.BookingNote)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="PaymentNote" /> @Html.DisplayNameFor(model => model.PaymentNote)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Добавить" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+
 </div>
 
 <div>

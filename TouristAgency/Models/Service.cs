@@ -16,6 +16,7 @@ namespace TouristAgency.Models
         public string Name { get; set; }
         [Display(Name = "Описание")]
         public string Description { get; set; }
+        [Range(1, 100000)]
         [Display(Name = "Цена")]
         public int Price { get; set; }
         public ICollection<ServiceList> ServiceList { get; set; }

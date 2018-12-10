@@ -26,10 +26,9 @@ namespace TouristAgency.Models
             int vouchers_number = 35;
             string fullname;
             string position;
-            string voc = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
-            string tel = "0123456789";
+            string voc = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫБЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыь";
             int age;
-            string telephone;
+            int telephone;
 
             Random randObj = new Random(1);
             for (int empID = 1; empID <= employees_number; empID++)
@@ -39,7 +38,7 @@ namespace TouristAgency.Models
                 fullname = GenRandomString(voc, 10);
                 position = GenRandomString(voc, 10);
                 age = randObj.Next(18, 60);
-                telephone = GenRandomString(tel, 6);
+                telephone = randObj.Next(10000, 99999);
                 db.Employees.Add(new Employee { Fullname = fullname, Position = position, Age = age, Telephone = telephone });
             }
             //сохранение изменений в базу данных, связанную с объектом контекста
@@ -67,7 +66,7 @@ namespace TouristAgency.Models
                 DateTime birthdate = DateTime.Now.Date;
                 string sex = GenRandomString(voc, 1);
                 string address = GenRandomString(voc, 10);
-                telephone = GenRandomString(tel, 6);
+                telephone = randObj.Next(10000, 99999);
                 string passdata = GenRandomString(voc, 10);
                 int discount = randObj.Next(1, 100);
                 db.Clients.Add(new Client
@@ -89,7 +88,7 @@ namespace TouristAgency.Models
                 string country = GenRandomString(voc, 10);
                 string city = GenRandomString(voc, 10);
                 string address = GenRandomString(voc, 10);
-                telephone = GenRandomString(tel, 6);
+                telephone = randObj.Next(10000, 99999); 
                 int stars = randObj.Next(1, 10);
                 string contactface = GenRandomString(voc, 10);
                 string fotohotel = GenRandomString(voc, 10);

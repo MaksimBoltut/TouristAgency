@@ -30,15 +30,24 @@ namespace TouristAgency.Controllers
         }
         
         [SetToSession("Vouchers")]
-        public async Task<IActionResult> Index(int? id, int page = 0, SortState sortOrder = SortState.IdAsc)
+        public async Task<IActionResult> Index(int? id, string typerest, string hotel, DateTime datebeginning, DateTime expirationdate, int page = 0, SortState sortOrder = SortState.IdAsc)
         {
             var sessionVouchers = HttpContext.Session.Get("Vouchers");
-            if (sessionVouchers != null && id == null && page == 0 && sortOrder == SortState.IdAsc)
+            if (sessionVouchers != null && id == null && typerest == null && hotel == null && datebeginning == Convert.ToDateTime("01.01.0001")
+                && expirationdate == Convert.ToDateTime("01.01.0001") && page == 0 && sortOrder == SortState.IdAsc)
             {
                 try
                 {
                     if (sessionVouchers.Keys.Contains("id"))
                         id = Convert.ToInt32(sessionVouchers["id"]);
+                    if (sessionVouchers.Keys.Contains("typerest"))
+                        typerest = sessionVouchers["typerest"];
+                    if (sessionVouchers.Keys.Contains("hotel"))
+                        hotel = sessionVouchers["hotel"];
+                    if (sessionVouchers.Keys.Contains("datebeginning"))
+                        datebeginning = Convert.ToDateTime(sessionVouchers["datebeginning"]);
+                    if (sessionVouchers.Keys.Contains("expirationdate"))
+                        expirationdate = Convert.ToDateTime(sessionVouchers["expirationdate"]);
                 }
                 catch { }
                 if (sessionVouchers.Keys.Contains("page"))
@@ -57,6 +66,14 @@ namespace TouristAgency.Controllers
 
             if (id != null && id != 0)
                 source = source.Where(p => p.ID == id);
+            if (!String.IsNullOrEmpty(typerest))
+                source = source.Where(p => p.TypeRest.Name == typerest);
+            if (!String.IsNullOrEmpty(hotel))
+                source = source.Where(p => p.Hotel.Name == hotel);
+            if (datebeginning != Convert.ToDateTime("01.01.0001"))
+                source = source.Where(p => p.DateBeginning == datebeginning);
+            if (expirationdate != Convert.ToDateTime("01.01.0001"))
+                source = source.Where(p => p.ExpirationDate == expirationdate);
 
             switch (sortOrder)
             {
@@ -126,7 +143,7 @@ namespace TouristAgency.Controllers
                 PageViewModel = pageViewModel,
                 Vouchers = items,
                 SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(context.Vouchers.ToList(), id)
+                FilterViewModel = new FilterViewModel(context.Vouchers.ToList(), id, typerest, hotel, datebeginning, expirationdate)
             };
             return View(viewModel);
         }
@@ -163,9 +180,9 @@ namespace TouristAgency.Controllers
         {
             var serviceLists = context.ServiceList.Where(s => s.VoucherID == voucher.ID);
             context.ServiceList.RemoveRange(serviceLists);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
-            foreach (var s in services)
+            foreach (int s in services)
             {
                 context.ServiceList.Add(new ServiceList { ServiceID = s, VoucherID = voucher.ID });
             }
@@ -216,13 +233,13 @@ namespace TouristAgency.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 var voucher = context.Vouchers.FirstOrDefault(c => c.ID == id);
                 context.Vouchers.Remove(voucher);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             catch { }
             return RedirectToAction("index");
@@ -240,14 +257,23 @@ namespace TouristAgency.Controllers
             ViewBag.ClientID = client;
             ViewBag.TypeRestID = typerest;
             ViewBag.EmployeeID = employee;
+            ViewBag.Services = context._Services;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Voucher voucher)
+        public async Task<ActionResult> Create(Voucher voucher, int[] services)
         {
+            List<ServiceList> list = new List<ServiceList>();
+
+            foreach (int s in services)
+            {
+                list.Add(new ServiceList { ServiceID = s });
+            }
+            voucher.ServiceList = list;
+
             context.Vouchers.Add(voucher);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

@@ -12,6 +12,18 @@
     <div class="form-inline">
         <label class="control-label">Номер путёвки: </label>
         @Html.TextBox("id", Model.FilterViewModel.SelectedId, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Наименование типа отдыха: </label>
+        @Html.TextBox("typerest", Model.FilterViewModel.SelectedTypeRest, htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Название отеля: </label>
+        @Html.TextBox("hotel", Model.FilterViewModel.SelectedHotel, htmlAttributes: new { @class = "form-control" })
+        <br />
+        <label class="control-label">Дата начала: </label>
+        <input value="@Model.FilterViewModel.SelectedDateBeginning" name="DateBeginning" type="date" class="form-control" />
+
+        <label class="control-label">Дата окончания: </label>
+        <input value="@Model.FilterViewModel.SelectedExpirationDate" name="ExpirationDate" type="date" class="form-control" />
         <input type="submit" value="Поиск" class="btn btn-default" />
     </div>
 </form>
@@ -114,5 +126,9 @@
     </tbody>
 </table>
 <page-link page-model="Model.PageViewModel" page-action="Index"
-           page-url-surname="@(Model.FilterViewModel.SelectedId)"
+           page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-typerest="@(Model.FilterViewModel.SelectedTypeRest)"
+           page-url-hotel="@(Model.FilterViewModel.SelectedHotel)"
+           page-url-datebeginning="@(Model.FilterViewModel.SelectedDateBeginning)"
+           page-url-expirationdate="@(Model.FilterViewModel.SelectedExpirationDate)"
            page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>

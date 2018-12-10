@@ -16,6 +16,12 @@
         @Html.TextBox("FullName", Model.FilterViewModel.SelectedFullName,
                 htmlAttributes: new { @class = "form-control" })
 
+        <label class="control-label">Должность: </label>
+        @Html.TextBox("Position", Model.FilterViewModel.SelectedPosition,
+                htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label">Возраст: </label>
+        @Html.TextBox("Age", Model.FilterViewModel.SelectedAge, htmlAttributes: new { @class = "form-control" })
         <input type="submit" value="Поиск" class="btn btn-default" />
     </div>
 </form>
@@ -89,4 +95,6 @@
 <page-link page-model="@Model.PageViewModel" page-action="Index"
            page-url-fullname="@(Model.FilterViewModel.SelectedFullName)"
            page-url-id="@(Model.FilterViewModel.SelectedId)"
+           page-url-position="@(Model.FilterViewModel.SelectedPosition)"
+           page-url-age="@(Model.FilterViewModel.SelectedAge)"
            page-url-sortOrder="@(Model.SortViewModel.Current)"></page-link>
