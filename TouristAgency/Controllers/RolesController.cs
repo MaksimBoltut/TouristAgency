@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using TouristAgency.Models;
 using TouristAgency.ViewModels;
 using TouristAgency.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TouristAgency.Controllers
 {
@@ -22,6 +23,8 @@ namespace TouristAgency.Controllers
         public IActionResult Index() => View(_roleManager.Roles.ToList());
 
         public IActionResult Create() => View();
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
@@ -43,6 +46,7 @@ namespace TouristAgency.Controllers
             return View(name);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
@@ -56,6 +60,7 @@ namespace TouristAgency.Controllers
 
         public IActionResult UserList() => View(_userManager.Users.ToList());
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(string userId)
         {
             // получаем пользователя
@@ -77,6 +82,8 @@ namespace TouristAgency.Controllers
 
             return NotFound();
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {

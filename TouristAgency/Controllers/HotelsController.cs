@@ -9,16 +9,21 @@ using Microsoft.EntityFrameworkCore;
 using TouristAgency.ViewModels;
 using TouristAgency.Infrastructure.Filters;
 using TouristAgency.Infrastructure;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TouristAgency.Controllers
 {
     public class HotelsController : Controller
     {
         private AgencyContext context;
+        private IHostingEnvironment appEnvironment;
 
-        public HotelsController(AgencyContext context)
+        public HotelsController(AgencyContext context, IHostingEnvironment hosting)
         {
             this.context = context;
+            appEnvironment = hosting;
         }
 
         [SetToSession("Hotels")]
@@ -112,21 +117,43 @@ namespace TouristAgency.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
             Hotel hotel = context.Hotels.Find(id);
-            return View(hotel);
+
+            if (hotel != null)
+            {
+                ViewBag.FotoHotel = context.Hotels.ToList();
+                return View(hotel);
+            }
+
+            return RedirectToAction("Hotels");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult> Edit(Hotel hotel)
+        public async Task<ActionResult> Edit(Hotel hotel, Microsoft.AspNetCore.Http.IFormFile photo)
         {
+            if(photo != null)
+            {
+                string path = "/images/hotels" + DateTime.Now.ToString("ddMMyyyy") + "_" + photo.FileName;
+
+                using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await photo.CopyToAsync(fileStream);
+                }
+
+                hotel.FotoHotel = path;
+            }
+
             context.Hotels.Update(hotel);
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
@@ -139,6 +166,7 @@ namespace TouristAgency.Controllers
                 return View(hotel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
@@ -153,15 +181,29 @@ namespace TouristAgency.Controllers
             return RedirectToAction("index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult> Create(Hotel hotel)
+        public async Task<ActionResult> Create(Hotel hotel, Microsoft.AspNetCore.Http.IFormFile photo)
         {
+            if (photo != null)
+            {
+                string path = "/images/hotels" + DateTime.Now.ToString("ddMMyyyy") + "_" + photo.FileName;
+
+                using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await photo.CopyToAsync(fileStream);
+                }
+
+                hotel.FotoHotel = path;
+            }
+
             context.Hotels.Add(hotel);
             await context.SaveChangesAsync();
             return RedirectToAction("Index");

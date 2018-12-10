@@ -11,13 +11,21 @@ namespace TouristAgency.Models
         [Key]
         [Display(Name = "Код работника")]
         public int ID { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Display(Name = "ФИО")]
         public string Fullname { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Display(Name = "Должность")]
         public string Position { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Range(18, 100)]
         [Display(Name = "Возраст")]
         public int Age { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Range(100000, 999999)]
         [Display(Name = "Телефон")]
         public int Telephone { get; set; }

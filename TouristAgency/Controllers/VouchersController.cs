@@ -10,6 +10,7 @@ using TouristAgency.ViewModels.Vouchers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TouristAgency.Infrastructure.Filters;
 using TouristAgency.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TouristAgency.Controllers
 {
@@ -148,6 +149,7 @@ namespace TouristAgency.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -175,6 +177,7 @@ namespace TouristAgency.Controllers
             return View(voucher);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Edit(Voucher voucher, int[] services) //Исправить
         {
@@ -192,6 +195,7 @@ namespace TouristAgency.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
@@ -232,6 +236,7 @@ namespace TouristAgency.Controllers
                 return View(voucher);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
@@ -245,6 +250,7 @@ namespace TouristAgency.Controllers
             return RedirectToAction("index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -261,6 +267,7 @@ namespace TouristAgency.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Create(Voucher voucher, int[] services)
         {

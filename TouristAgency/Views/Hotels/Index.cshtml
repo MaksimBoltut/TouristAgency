@@ -4,7 +4,7 @@
 @model IndexViewModel
 @addTagHelper "*, TouristAgency"
 @{
-    ViewData["Title"] = "Hotels";
+    ViewData["Title"] = "Отели";
 }
 <h1>Список отелей</h1>
 <form method="get">
@@ -103,7 +103,14 @@
                 @Html.DisplayFor(modelItem => item.ContactFace)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FotoHotel)
+                @if(item.FotoHotel != null)
+                {
+                    <img style="max-width:200px" src="@item.FotoHotel" />
+                }
+                else
+                {
+                    <img style="max-width:200px;" src="~/images/noimage.jpg" />
+                }
             </td>
             @if (User.IsInRole("Admin"))
             {

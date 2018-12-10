@@ -1,7 +1,7 @@
 ﻿@model TouristAgency.Models.Client
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Изменние записи";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,8 +22,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Sex" class="control-label"></label>
-                <input asp-for="Sex" class="form-control" />
-                <span asp-validation-for="Sex" class="text-danger"></span>
+                <select asp-for="Sex">
+                    <option value="М">М</option>
+                    <option value="Ж">Ж</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Adress" class="control-label"></label>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TouristAgency.ViewModels.Employees;
 using TouristAgency.Infrastructure.Filters;
 using TouristAgency.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TouristAgency.Controllers
 {
@@ -111,14 +112,16 @@ namespace TouristAgency.Controllers
             };
             return View(viewModel);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
             Employee employee = context.Employees.Find(id);
             return View(employee);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Edit(Employee employee)
         {
@@ -126,7 +129,8 @@ namespace TouristAgency.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
@@ -138,7 +142,8 @@ namespace TouristAgency.Controllers
             else
                 return View(employee);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
@@ -151,13 +156,15 @@ namespace TouristAgency.Controllers
             catch { }
             return RedirectToAction("index");
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Create(Employee employee)
         {

@@ -1,7 +1,7 @@
 ﻿@model TouristAgency.Models.Hotel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Удаление записи";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -62,7 +62,14 @@
             @Html.DisplayNameFor(model => model.FotoHotel)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.FotoHotel)
+            @if (Model.FotoHotel != null)
+            {
+                <img style="max-width:200px" src="@Model.FotoHotel" />
+            }
+            else
+            {
+                <img style="max-width:200px;" src="~/images/noimage.jpg" />
+            }
         </dd>
     </dl>
     

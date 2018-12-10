@@ -12,10 +12,16 @@ namespace TouristAgency.Models
         [Key]
         [Display(Name = "Код сервиса")]
         public int ListID { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Display(Name = "Название")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Display(Name = "Описание")]
         public string Description { get; set; }
+
+        [Required(ErrorMessage = "Поле не заполнено")]
         [Range(1, 100000)]
         [Display(Name = "Цена")]
         public int Price { get; set; }

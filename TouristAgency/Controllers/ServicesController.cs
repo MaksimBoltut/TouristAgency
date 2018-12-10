@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TouristAgency.ViewModels;
 using TouristAgency.Infrastructure.Filters;
 using TouristAgency.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TouristAgency.Controllers
 {
@@ -94,6 +95,7 @@ namespace TouristAgency.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -101,6 +103,7 @@ namespace TouristAgency.Controllers
             return View(service);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Edit(Service service)
         {
@@ -109,6 +112,7 @@ namespace TouristAgency.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
@@ -121,6 +125,7 @@ namespace TouristAgency.Controllers
                 return View(service);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
@@ -134,12 +139,14 @@ namespace TouristAgency.Controllers
             return RedirectToAction("index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> Create(Service service)
         {

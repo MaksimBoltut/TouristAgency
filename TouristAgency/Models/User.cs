@@ -9,7 +9,7 @@ namespace TouristAgency.Models
 {
     public class User : IdentityUser
     {
-        [Range(1950, 2010)]
+        [Range(1918, 2010)]
         public int Year { get; set; }
     }
 }
