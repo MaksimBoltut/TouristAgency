@@ -14,7 +14,7 @@ namespace TouristAgency.Models
         }
 
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Employee> Employees { get; set; }  
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Service> _Services { get; set; }
         public DbSet<ServiceList> ServiceList { get; set; }

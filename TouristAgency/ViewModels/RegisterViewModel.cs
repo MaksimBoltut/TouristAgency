@@ -12,7 +12,8 @@ namespace TouristAgency.ViewModels
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Поле не заполнено")]
+        [Range(1918, 2010)]
         [Display(Name = "Год рождения")]
         public int Year { get; set; }
 
